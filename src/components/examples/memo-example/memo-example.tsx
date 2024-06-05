@@ -1,15 +1,11 @@
 import {useEffect, useMemo, useReducer, useState} from "react";
 import {Child} from "./child/child";
+import {useCounter} from "../../../utils/effect.counter";
 
 
 
 export const MemoExample = () => {
-    const [count, counter] = useReducer((value) => value + 1, 1)
-
-    useEffect(() => {
-        setInterval(() => counter(), 1000)
-    }, [])
-
+    const count = useCounter();
 
     return (
         <div>

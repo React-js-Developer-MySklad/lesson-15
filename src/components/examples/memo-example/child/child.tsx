@@ -1,4 +1,5 @@
 import {memo, useEffect} from "react";
+import {useLogger} from "../../../../utils/effect.utils";
 
 type Props = {
     id: number,
@@ -8,16 +9,7 @@ type Props = {
 
 export const Child = (props: Props) => {
 
-    useEffect(() => {
-        console.log('Child: did mount')
-        return () => {
-            console.log('Child: did unmount')
-        }
-    }, []);
-
-    useEffect(() => {
-        console.log('Child: did update')
-    });
+    useLogger('Child')
 
     return (
         <div>

@@ -23,10 +23,10 @@ const reducer = (state: State, action: Action) => {
             return {isLoading: false, data: undefined}
 
         case ActionKind.LOADING:
-            return {...state, isLoading: true,}
+            return { ...state, isLoading: true }
 
         case ActionKind.LOADED:
-            return {isLoading: false, data: action.payload}
+            return { isLoading: false, data: action.payload }
     }
 
     throw Error('Action is wrong');

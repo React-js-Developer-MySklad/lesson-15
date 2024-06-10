@@ -6,6 +6,7 @@ import {UseIdExample} from "../../components/examples/use-id-example/use-id-exam
 import {UseDeferredValueExample} from "../../components/examples/use-deferred-value-example/use-deferred-value-example";
 import {ProductList} from "../../components/feature/product-list/product-list";
 import {UseReducerExample} from "../../components/examples/use-reducer-example/use-reducer-example";
+import {UseTransitionExample} from "../../components/examples/use-transition-example/use-transition-example";
 
 export const DashboardPage = () => {
     return (
@@ -16,8 +17,9 @@ export const DashboardPage = () => {
             {/*<UseCallbackExample/>*/}
             {/*<UseIdExample/>*/}
             {/*<UseDeferredValueExample/>*/}
-
-            <ProductList/>
+            <UseTransitionExample/>
+            {/*<ProductList/>*/}
+            {/*<App/>*/}
         </>
     )
 }

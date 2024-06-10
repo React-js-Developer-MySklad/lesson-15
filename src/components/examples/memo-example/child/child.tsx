@@ -1,4 +1,4 @@
-import {memo, useEffect} from "react";
+import React, {memo, useEffect} from "react";
 import {useLogger} from "../../../../utils/effect.utils";
 
 type Props = {
@@ -7,6 +7,7 @@ type Props = {
     data: {url: string}
 }
 
+// export const Child = React.memo((props: Props) => {
 export const Child = (props: Props) => {
 
     useLogger('Child')

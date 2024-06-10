@@ -8,7 +8,7 @@ export const App: React.FC = () => {
         <ErrorBoundary>
             <AuthenticationProvider>
                 <main>
-                    <h1>React Hooks (1)</h1>
+                    <h1>React Hooks (2)</h1>
                     <DashboardPage/>
                 </main>
             </AuthenticationProvider>

@@ -1,34 +1,30 @@
 import {useCallback, useEffect, useRef, useState} from "react";
 
-export const useDebounceUntilChanged = <T>(
-    initialValue: T,
-    cb: () => void,
-    delay: number = 1000
-): [T, (t: T) => void ] => {
+type DebounceUntilChangedResult<T> = [ T, T, (value: T) => void, () =>void ]
 
-    const [actualValue, setActualValue] = useState(initialValue);
+export const useDebounceUntilChanged = <T> (actualValue: T, delay: number = 500): DebounceUntilChangedResult<T> => {
+    const [state, setState] = useState<T | undefined>(actualValue)
+    const [debounceState, setDebounceState] = useState<T | undefined>(actualValue);
 
-    const prevValue = useRef<T>()
-    const debounceId = useRef<NodeJS.Timeout>()
+    const timeoutId = useRef<NodeJS.Timeout>()
 
     useEffect(() => {
-        debounceId.current = setTimeout(() => {
-            if (actualValue && prevValue.current !== actualValue) {
-                prevValue.current = actualValue;
-                cb();
+        timeoutId.current = setTimeout(() => {
+            if (state !== debounceState) {
+                setDebounceState(state);
             }
         }, delay);
 
-        return () => clearTimeout(debounceId.current);
-
-    }, [actualValue, delay]);
-
-    const resetActual = useCallback((newValue: T) => {
-        if (actualValue !== newValue) {
-            setActualValue(newValue);
+        return () => {
+            clearTimeout(timeoutId.current);
         }
+    }, [state, delay]);
 
-    }, [actualValue]);
+    const reset = useCallback(() => {
+        setState(undefined);
+        setDebounceState(undefined)
+    },[])
 
-    return [actualValue, resetActual];
-};
+
+    return [debounceState, state, setState, reset]
+}

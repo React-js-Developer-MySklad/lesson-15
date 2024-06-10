@@ -1,24 +1,14 @@
-
-import {useEffect, useState} from "react";
+import React, {useEffect} from "react";
 import {useDebounceUntilChanged} from "../../../hooks/useDebounceUntiChanged/useDebounceUntilChanged";
-import {httpRequest} from "../../../tools/http-request";
 
-export const SearchInput = () => {
+type Props<T, V> = {
+    value: T
+    onChange: (value: T) => void
+}
 
-    const [products, setProducts] = useState<{id: number, title: string}[]>([])
-    const [debouncedValue, setDebouncedValue] = useState<string>('')
-    const [search, setSearch] = useDebounceUntilChanged<string>('', () => {
-        setDebouncedValue(search);
-
-        httpRequest<{products: {id: number, title: string}[]}>(
-            `https://dummyjson.com/products/search?q=${search}`
-        ).then(res =>
-            setProducts(res.products));
-    });
-
-    useEffect(() => {
-
-    }, []);
+export const SearchInput: React.FC<Props<string, {id: number, title: string}>> = ({value, onChange}) => {
+    const [debouncedValue, search, setSearch] = useDebounceUntilChanged<string>(value);
+    useEffect(() => onChange(debouncedValue), [debouncedValue]);
 
     return (
         <div>
@@ -26,15 +16,7 @@ export const SearchInput = () => {
                 Search Products
                 <input value={search} onChange={e => setSearch(e.currentTarget.value)}/>
             </label>
-
-            {search !== debouncedValue && <div> Waiting...</div>}
-
-            {products.map(item => (
-                <div key={item.id}
-                     style={{opacity: search !== debouncedValue ? 0.5 : 1}}>
-                    {item.title}
-                </div>
-            ))}
+            {search !== debouncedValue && <div> Searching...</div>}
         </div>
     )
 }

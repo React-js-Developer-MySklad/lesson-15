@@ -1,5 +1,5 @@
 import {AuthenticationContext} from "./authentication.context";
-import React, {PropsWithChildren, useState} from "react";
+import React, {PropsWithChildren, useCallback, useState} from "react";
 import {httpRequest} from "../../tools/http-request";
 import {AuthenticationState, User} from "./authentication.type";
 
@@ -12,18 +12,20 @@ export const AuthenticationProvider: React.FC<PropsWithChildren> = ({children}) 
     const [user, setUser] = useState<User>(null)
     const [token, setToken] = useState<string>()
 
+    const login = useCallback((username: string, password: string) => {
+        httpRequest<UserResponse>('https://dummyjson.com/auth/login', {
+            headers: {'Content-Type': 'application/json'},
+            method: 'POST', body: JSON.stringify({username, password})})
+            .then(res => {
+                setUser({id: res.id, firstName: res.firstName, lastName: res.lastName })
+                setToken(res.token)
+                setIsAuthenticated(true)
+            })
+    }, [])
+
     const context = {
         isAuthenticated,
-        login: (username: string, password: string) => {
-            httpRequest<UserResponse>('https://dummyjson.com/auth/login', {
-                headers: {'Content-Type': 'application/json'},
-                method: 'POST', body: JSON.stringify({username, password})})
-                .then(res => {
-                    setUser({id: res.id, firstName: res.firstName, lastName: res.lastName })
-                    setToken(res.token)
-                    setIsAuthenticated(true)
-                })
-        },
+        login,
         user,
         token
     } as AuthenticationState;

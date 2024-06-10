@@ -1,8 +1,8 @@
 import {useEffect, useState} from "react";
-import {SearchInput} from "../search-input/search-input";
+import {SearchInput} from "../../search-input/search-input";
 import {httpRequest} from "../../../tools/http-request";
 
-export const ProductsList = () => {
+export const ProductList = () => {
     const [products, setProducts] = useState<{id: number, title: string}[]>([])
     const [search, setSearch] = useState<string>()
 

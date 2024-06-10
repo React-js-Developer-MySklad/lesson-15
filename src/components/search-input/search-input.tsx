@@ -1,5 +1,5 @@
 import React, {useEffect} from "react";
-import {useDebounceUntilChanged} from "../../../hooks/useDebounceUntiChanged/useDebounceUntilChanged";
+import {useDebounceUntilChanged} from "../../hooks/useDebounceUntiChanged/useDebounceUntilChanged";
 
 type Props<T, V> = {
     value: T

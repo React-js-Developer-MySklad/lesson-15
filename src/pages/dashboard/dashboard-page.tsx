@@ -4,6 +4,7 @@ import {UseMemoExample} from "../../components/examples/use-memo-example/use-mem
 import {UseCallbackExample} from "../../components/examples/use-callback-example/use-callback-example";
 import {UseIdExample} from "../../components/examples/use-id-example/use-id-example";
 import {UseDeferredValueExample} from "../../components/examples/use-deferred-value-example/use-deferred-value-example";
+import {SearchInput} from "../../components/feature/search-input/search-input";
 export const DashboardPage = () => {
 
     return (
@@ -13,7 +14,9 @@ export const DashboardPage = () => {
             {/*<UseMemoExample/>*/}
             {/*<UseCallbackExample/>*/}
             {/*<UseIdExample/>*/}
-            <UseDeferredValueExample/>
+            {/*<UseDeferredValueExample/>*/}
+
+            <SearchInput/>
         </>
     )
 }

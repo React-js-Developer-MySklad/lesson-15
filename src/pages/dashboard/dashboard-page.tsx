@@ -17,9 +17,8 @@ export const DashboardPage = () => {
             {/*<UseCallbackExample/>*/}
             {/*<UseIdExample/>*/}
             {/*<UseDeferredValueExample/>*/}
-            <UseTransitionExample/>
+            {/*<UseTransitionExample/>*/}
             {/*<ProductList/>*/}
-            {/*<App/>*/}
         </>
     )
 }

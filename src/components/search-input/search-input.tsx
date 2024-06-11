@@ -4,10 +4,11 @@ import {useDebounceUntilChanged} from "../../hooks/useDebounceUntiChanged/useDeb
 type Props<T, V> = {
     value: T
     onChange: (value: T) => void
+    delay?: number
 }
 
-export const SearchInput: React.FC<Props<string, {id: number, title: string}>> = ({value, onChange}) => {
-    const [debouncedValue, search, setSearch] = useDebounceUntilChanged<string>(value);
+export const SearchInput: React.FC<Props<string, {id: number, title: string}>> = ({value, onChange, delay = 500}) => {
+    const [debouncedValue, search, setSearch] = useDebounceUntilChanged<string>(value, delay);
     useEffect(() => onChange(debouncedValue), [debouncedValue]);
 
     return (

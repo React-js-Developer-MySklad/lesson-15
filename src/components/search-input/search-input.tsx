@@ -17,7 +17,7 @@ export const SearchInput: React.FC<Props<string, {id: number, title: string}>> =
                 Search Products
                 <input type='search' value={search} onChange={e => setSearch(e.currentTarget.value)}/>
             </label>
-            {search !== debouncedValue && <div> Searching...</div>}
+            {search !== debouncedValue && <div> Typing...</div>}
         </form>
     )
 }

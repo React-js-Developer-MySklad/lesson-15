@@ -34,13 +34,13 @@ describe('Product List', () => {
     });
 
 
-    it('should render loader ', async () => {
+    it('should render typing message ', async () => {
         const {user, searchElement} = setup();
 
         await user.click(searchElement);
         await user.keyboard("Phone")
 
-        expect(screen.getByText('Searching...')).toBeInTheDocument()
+        expect(screen.getByText('Typing...')).toBeInTheDocument()
 
     })
 
@@ -71,10 +71,10 @@ describe('Product List', () => {
         await user.click(searchElement);
         await user.keyboard("Phone");
 
-        expect(await screen.findByText('Searching...')).toBeInTheDocument();
+        expect(await screen.findByText('Typing...')).toBeInTheDocument();
         await user.clear(searchElement);
 
-        expect(screen.queryByText('Searching...')).not.toBeInTheDocument();
+        expect(screen.queryByText('Typing...')).not.toBeInTheDocument();
 
         await waitFor(() => expect(fetch).toBeCalledTimes(0), {timeout: 500});
     })

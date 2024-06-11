@@ -18,7 +18,7 @@ export const DashboardPage = () => {
             {/*<UseIdExample/>*/}
             {/*<UseDeferredValueExample/>*/}
             {/*<UseTransitionExample/>*/}
-            {/*<ProductList/>*/}
+            <ProductList/>
         </>
     )
 }

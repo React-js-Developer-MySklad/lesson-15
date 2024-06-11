@@ -44,26 +44,6 @@ describe('Product List', () => {
 
     })
 
-    it('should send request after delay', async () => {
-
-        const {user, searchElement} = setup();
-
-        await user.click(searchElement);
-        await user.keyboard("Phone");
-
-        await waitFor(() => expect(fetch).toBeCalled(), {timeout: 500});
-    })
-
-    it('should render product list', async () => {
-        const {user, searchElement} = setup();
-
-        await user.click(searchElement);
-        await user.keyboard("Phone");
-
-        expect(await screen.findByText('Phone', {exact: false})).toBeInTheDocument();
-    })
-
-
     it('should not send empty request', async () => {
 
         const {user, searchElement} = setup();
@@ -77,6 +57,16 @@ describe('Product List', () => {
         expect(screen.queryByText('Typing...')).not.toBeInTheDocument();
 
         await waitFor(() => expect(fetch).toBeCalledTimes(0), {timeout: 500});
+    })
+
+    it('should send request after delay', async () => {
+
+        const {user, searchElement} = setup();
+
+        await user.click(searchElement);
+        await user.keyboard("Phone");
+
+        await waitFor(() => expect(fetch).toBeCalled(), {timeout: 500});
     })
 
     it('should not send the same request again', async () => {
@@ -95,4 +85,30 @@ describe('Product List', () => {
         await user.keyboard("Phone");
         await waitFor(() => expect(fetch).toBeCalledTimes(1), {timeout: 500});
     })
+
+    it('should render product list', async () => {
+        const {user, searchElement} = setup();
+
+        await user.click(searchElement);
+        await user.keyboard("Phone");
+
+        expect(await screen.findByText('Phone', {exact: false})).toBeInTheDocument();
+    })
+
+    it('should clear product list after removing search request', async () => {
+        const {user, searchElement} = setup();
+
+        await user.click(searchElement);
+        await user.keyboard("Phone");
+
+        expect(await screen.findByText('Phone', {exact: false})).toBeInTheDocument();
+
+        await user.clear(searchElement);
+
+        await waitFor(() => expect(screen.queryByText('Typing...')).not.toBeInTheDocument())
+
+        expect(screen.findByText('Phone', {exact: false})).rejects.toThrow();
+        expect(fetch).toBeCalledTimes(1);
+    })
+
 })
